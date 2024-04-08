@@ -33,6 +33,11 @@ module Myapp
                        helper_specs: false,
                        routing_specs: false
       g.factory_bot false
+
+      # ActionDispatch::Request::Session::DisabledSessionErrorへの対処
+      config.session_store :cookie_store, key: '_interslice_session'
+      config.middleware.use ActionDispatch::Cookies
+      config.middleware.use config.session_store, config.session_options
     end
   end
 end
