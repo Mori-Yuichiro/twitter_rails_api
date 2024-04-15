@@ -11,10 +11,9 @@ module Api
             io: StringIO.new(Base64.decode64(data.split(',').last)),
             filename: image_params[:tweet_image_names][index]
           )
-          tweet.tweet_images.attach(blob)
+          tweet.images.attach(blob)
         end
-        Rails.logger.debug tweet.tweet_images
-        render json: { tweet_images: tweet.tweet_images }
+        render json: { tweet_images: tweet.images }
       end
 
       private
