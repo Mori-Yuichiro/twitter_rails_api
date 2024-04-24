@@ -11,6 +11,11 @@ module Api
         render json: { tweet: tweets, total_page: }, include: [:user], status: :ok, methods: [:image_urls]
       end
 
+      def show
+        tweet = Tweet.find_by(id: params[:id])
+        render json: { tweet: }, status: :ok, include: [:user], methods: [:image_urls]
+      end
+
       def create
         tweet = current_api_v1_user.tweets.build(tweet_param)
         if tweet.save
