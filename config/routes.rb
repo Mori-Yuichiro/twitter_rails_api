@@ -8,6 +8,8 @@ Rails.application.routes.draw do
       resources :sessions, only: %i[index]
       resources :tweets, only: %i[index create show]
       resources :images, only: %i[create]
+      put '/profile', to: 'profiles#update'
+      resources :users, only: %i[show], controller: :profiles
     end
   end
 
