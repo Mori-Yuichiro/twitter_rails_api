@@ -7,5 +7,22 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :confirmable, :timeoutable
   include DeviseTokenAuth::Concerns::User
 
+  include Rails.application.routes.url_helpers
+
   has_many :tweets, dependent: :destroy
+
+  has_one_attached :profile_image
+  has_one_attached :header_image
+
+  def profile_image_url
+    return unless profile_image.attached?
+
+    url_for(profile_image)
+  end
+
+  def header_image_url
+    return unless header_image.attached?
+
+    url_for(header_image)
+  end
 end
