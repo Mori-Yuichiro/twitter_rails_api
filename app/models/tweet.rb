@@ -3,6 +3,8 @@
 class Tweet < ApplicationRecord
   belongs_to :user
 
+  has_many :comments, dependent: :destroy
+
   include Rails.application.routes.url_helpers
 
   has_many_attached :images
