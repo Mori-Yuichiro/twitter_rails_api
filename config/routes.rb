@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       resources :images, only: %i[create]
       put '/profile', to: 'profiles#update'
       resources :users, only: %i[show], controller: :profiles
+      resources :comments, only: %i[create]
     end
   end
 
