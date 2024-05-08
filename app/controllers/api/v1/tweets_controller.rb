@@ -3,7 +3,7 @@
 module Api
   module V1
     class TweetsController < ApplicationController
-      before_action :authenticate_api_v1_user!, only: %i[index create show destroy]
+      before_action :authenticate_api_v1_user!, only: %i[index create show destroy tweet_comments]
       def index
         page = (params[:offset].to_i / params[:limit].to_i) + 1
         tweets = Tweet.page(page).per(params[:limit]).order(created_at: 'DESC')
