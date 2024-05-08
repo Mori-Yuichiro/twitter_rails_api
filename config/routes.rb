@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       put '/profile', to: 'profiles#update'
       resources :users, only: %i[show], controller: :profiles
       resources :comments, only: %i[create]
+      get '/tweets/:tweet_id/comments', to: 'tweets#tweet_comments'
     end
   end
 

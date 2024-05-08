@@ -31,6 +31,11 @@ module Api
         render status: :ok
       end
 
+      def tweet_comments
+        comments = Comment.where(tweet_id: params[:tweet_id]).order(created_at: :desc)
+        render json: { comments: }, status: :ok, include: [:user]
+      end
+
       private
 
       def tweet_param
