@@ -3,7 +3,7 @@
 module Api
   module V1
     class TweetsController < ApplicationController
-      before_action :authenticate_api_v1_user!, only: %i[index create show destroy tweet_comments]
+      before_action :authenticate_api_v1_user!, only: %i[index create show destroy]
       def index
         page = (params[:offset].to_i / params[:limit].to_i) + 1
         tweets = Tweet.page(page).per(params[:limit]).order(created_at: 'DESC')
@@ -29,11 +29,6 @@ module Api
         tweet = Tweet.find_by(id: params[:id])
         tweet.destroy
         render status: :ok
-      end
-
-      def tweet_comments
-        comments = Comment.where(tweet_id: params[:tweet_id]).order(created_at: :desc)
-        render json: { comments: }, status: :ok, include: [:user]
       end
 
       private

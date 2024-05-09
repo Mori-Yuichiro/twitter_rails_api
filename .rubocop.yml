@@ -12,5 +12,3 @@ Metrics/AbcSize:
   Max: 40
 Metrics/MethodLength:
   Max: 35
-RailsSpecificActionName:
-  Enabled: false

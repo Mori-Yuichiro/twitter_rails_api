@@ -6,12 +6,14 @@ Rails.application.routes.draw do
     namespace :v1 do
       mount_devise_token_auth_for 'User', at: 'users'
       resources :sessions, only: %i[index]
-      resources :tweets, only: %i[index create show destroy]
+      resources :tweets, only: %i[index create show destroy] do
+        resources :comments, only: %i[index], module: :tweets
+      end
+
       resources :images, only: %i[create]
       put '/profile', to: 'profiles#update'
       resources :users, only: %i[show], controller: :profiles
       resources :comments, only: %i[create]
-      get '/tweets/:tweet_id/comments', to: 'tweets#tweet_comments'
     end
   end
 
