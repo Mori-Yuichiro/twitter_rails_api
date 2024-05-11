@@ -8,7 +8,7 @@ module Api
       def show
         user = User.find_by(id: params[:id])
         render json: { user: }, status: :ok, methods: %i[profile_image_url header_image_url],
-               include: { tweets: { methods: :image_urls } }
+               include: { tweets: { methods: :image_urls }, comments: {} }
       end
 
       def update
