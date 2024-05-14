@@ -9,9 +9,10 @@ class User < ApplicationRecord
 
   include Rails.application.routes.url_helpers
 
-  has_many :tweets, dependent: :destroy
-
   has_many :comments, dependent: :destroy
+
+  has_many :retweets, dependent: :destroy
+  has_many :tweets, through: :retweets
 
   has_one_attached :profile_image
   has_one_attached :header_image

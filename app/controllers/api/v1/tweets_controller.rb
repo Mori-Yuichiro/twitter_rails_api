@@ -6,9 +6,10 @@ module Api
       before_action :authenticate_api_v1_user!, only: %i[index create show destroy]
       def index
         page = (params[:offset].to_i / params[:limit].to_i) + 1
-        tweets = Tweet.page(page).per(params[:limit]).order(created_at: 'DESC')
+        tweets = Tweet.page(page).per(params[:limit]).order(updated_at: 'DESC')
         total_page = tweets.total_pages
-        render json: { tweet: tweets, total_page: }, include: [:user], status: :ok, methods: [:image_urls]
+        render json: { tweet: tweets, total_page: }, include: %i[user retweets], status: :ok,
+               methods: %i[image_urls retweets_count]
       end
 
       def show
