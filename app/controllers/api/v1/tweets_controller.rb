@@ -14,7 +14,7 @@ module Api
 
       def show
         tweet = Tweet.find_by(id: params[:id])
-        render json: { tweet: }, status: :ok, include: [:user], methods: [:image_urls]
+        render json: { tweet: }, status: :ok, include: [:user, :retweets], methods: [:image_urls, :retweets_count]
       end
 
       def create
