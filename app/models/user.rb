@@ -10,9 +10,8 @@ class User < ApplicationRecord
   include Rails.application.routes.url_helpers
 
   has_many :comments, dependent: :destroy
-  
+
   has_many :retweets, dependent: :destroy
-  has_many :tweets, through: :retweets
 
   has_many :tweets, dependent: :destroy
 
@@ -38,6 +37,6 @@ class User < ApplicationRecord
     # リツイートしたツイートのユーザー情報を取得
     retweet_user_ids = retweet_tweet.pluck(:user_id)
     retweet_user = User.find(retweet_user_ids)
-    return retweet_tweet, retweet_user
+    [retweet_tweet, retweet_user]
   end
 end
