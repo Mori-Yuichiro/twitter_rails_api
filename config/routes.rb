@@ -8,8 +8,7 @@ Rails.application.routes.draw do
       resources :sessions, only: %i[index]
       resources :tweets, only: %i[index create show destroy] do
         resources :comments, only: %i[index], module: :tweets
-        resources :retweets, only: %i[create], module: :tweets
-        delete '/retweets', to: 'tweets/retweets#destroy'
+        resource :retweets, only: %i[create destroy], module: :tweets
       end
 
       resources :images, only: %i[create]
