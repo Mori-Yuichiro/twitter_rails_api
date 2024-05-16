@@ -5,6 +5,9 @@ class Tweet < ApplicationRecord
 
   has_many :comments, dependent: :destroy
 
+  has_many :retweets, dependent: :destroy
+  has_many :users, through: :retweets
+
   include Rails.application.routes.url_helpers
 
   has_many_attached :images
@@ -16,4 +19,6 @@ class Tweet < ApplicationRecord
 
     images.map { |image| url_for(image) }
   end
+
+  delegate :count, to: :retweets, prefix: true
 end
