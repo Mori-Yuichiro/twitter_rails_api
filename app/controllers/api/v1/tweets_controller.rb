@@ -8,13 +8,14 @@ module Api
         page = (params[:offset].to_i / params[:limit].to_i) + 1
         tweets = Tweet.page(page).per(params[:limit]).order(updated_at: 'DESC')
         total_page = tweets.total_pages
-        render json: { tweet: tweets, total_page: }, include: %i[user retweets], status: :ok,
-               methods: %i[image_urls retweets_count]
+        render json: { tweet: tweets, total_page: }, include: %i[user retweets nices], status: :ok,
+               methods: %i[image_urls retweets_count nices_count]
       end
 
       def show
         tweet = Tweet.find_by(id: params[:id])
-        render json: { tweet: }, status: :ok, include: %i[user retweets], methods: %i[image_urls retweets_count]
+        render json: { tweet: }, status: :ok, include: %i[user retweets nices],
+               methods: %i[image_urls retweets_count nices_count]
       end
 
       def create

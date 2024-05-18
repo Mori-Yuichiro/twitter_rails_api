@@ -6,7 +6,9 @@ class Tweet < ApplicationRecord
   has_many :comments, dependent: :destroy
 
   has_many :retweets, dependent: :destroy
-  has_many :users, through: :retweets
+
+  has_many :nices, dependent: :destroy
+  has_many :users, through: :nices
 
   include Rails.application.routes.url_helpers
 
@@ -21,4 +23,6 @@ class Tweet < ApplicationRecord
   end
 
   delegate :count, to: :retweets, prefix: true
+
+  delegate :count, to: :nices, prefix: true
 end

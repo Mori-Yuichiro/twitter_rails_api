@@ -13,6 +13,8 @@ class User < ApplicationRecord
 
   has_many :retweets, dependent: :destroy
 
+  has_many :nices, dependent: :destroy
+
   has_many :tweets, dependent: :destroy
 
   has_one_attached :profile_image
@@ -38,5 +40,13 @@ class User < ApplicationRecord
     retweet_user_ids = retweet_tweet.pluck(:user_id)
     retweet_user = User.find(retweet_user_ids)
     [retweet_tweet, retweet_user]
+  end
+
+  def nice_tweet
+    nice_ids = nices.pluck(:tweet_id)
+    nice_tweet = Tweet.find(nice_ids)
+    nice_user_ids = nice_tweet.pluck(:user_id)
+    nice_user = User.find(nice_user_ids)
+    [nice_tweet, nice_user]
   end
 end
