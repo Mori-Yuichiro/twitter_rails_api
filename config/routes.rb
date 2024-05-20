@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       resources :tweets, only: %i[index create show destroy] do
         resources :comments, only: %i[index], module: :tweets
         resource :retweets, only: %i[create destroy], module: :tweets
+        resource :favorites, only: %i[create destroy], module: :tweets, controller: :nices
       end
 
       resources :images, only: %i[create]
