@@ -11,7 +11,9 @@ module Api
                include: {
                  tweets: { methods: %i[image_urls retweets_count nices_count],
                            include: %i[retweets nices] },
-                 comments: {}
+                 comments: {},
+                 following: {},
+                 followers: {}
                }
       end
 

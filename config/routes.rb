@@ -11,6 +11,9 @@ Rails.application.routes.draw do
         resource :retweets, only: %i[create destroy], module: :tweets
         resource :favorites, only: %i[create destroy], module: :tweets, controller: :nices
       end
+      resources :users, only: %i[show], controller: :profiles do
+        resource :follow, only: %i[create], module: :users
+      end
 
       resources :images, only: %i[create]
       put '/profile', to: 'profiles#update'

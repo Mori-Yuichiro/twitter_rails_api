@@ -9,6 +9,14 @@ class User < ApplicationRecord
 
   include Rails.application.routes.url_helpers
 
+  # 自分がフォローする側の関係
+  has_many :follows, class_name: 'Relationship', foreign_key: 'follower_id', dependent: :destroy, inverse_of: :follower
+  has_many :following, through: :follows, source: :followed
+  # 自分がフォローされる側の関係
+  has_many :reverse_of_follows, class_name: 'Relationship', foreign_key: 'followed_id', dependent: :destroy,
+                                inverse_of: :followed
+  has_many :followers, through: :reverse_of_follows, source: :follower
+
   has_many :comments, dependent: :destroy
 
   has_many :retweets, dependent: :destroy
@@ -48,5 +56,9 @@ class User < ApplicationRecord
     nice_user_ids = nice_tweet.pluck(:user_id)
     nice_user = User.find(nice_user_ids)
     [nice_tweet, nice_user]
+  end
+
+  def follow(user)
+    follows.find_or_create_by(followed_id: user.id) unless self == user
   end
 end
