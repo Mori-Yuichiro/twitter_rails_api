@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       end
       resources :users, only: %i[show], controller: :profiles do
         resource :follow, only: %i[create], module: :users
+        resource :unfollow, only: %i[destroy], module: :users, controller: :follows
       end
 
       resources :images, only: %i[create]
