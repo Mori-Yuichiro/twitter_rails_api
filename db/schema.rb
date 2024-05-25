@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_20_003147) do
+ActiveRecord::Schema[7.0].define(version: 2024_05_24_003711) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -60,6 +60,18 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_20_003147) do
     t.index ["tweet_id"], name: "index_nices_on_tweet_id"
     t.index ["user_id", "tweet_id"], name: "index_nices_on_user_id_and_tweet_id", unique: true
     t.index ["user_id"], name: "index_nices_on_user_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer "visitor_id", null: false
+    t.integer "visited_id", null: false
+    t.integer "nice_id"
+    t.integer "follow_id"
+    t.integer "comment_id"
+    t.string "action", default: "", null: false
+    t.boolean "read", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "relationships", force: :cascade do |t|
