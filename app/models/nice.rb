@@ -8,14 +8,15 @@ class Nice < ApplicationRecord
 
   validates :user_id, uniqueness: { scope: :tweet_id }
 
+  include NotificationConcern
   after_create_commit :create_notification
 
-  private
+  # private
 
-  def create_notification
-    return if user_id == tweet.user_id
+  # def create_notification
+  #   return if user_id == tweet.user_id
 
-    notification = Notification.new(visitor_id: user_id, visited_id: tweet.user_id, nice_id: id, action: :nice)
-    return unless notification.save
-  end
+  #   notification = Notification.new(visitor_id: user_id, visited_id: tweet.user_id, nice_id: id, action: :nice)
+  #   return unless notification.save
+  # end
 end

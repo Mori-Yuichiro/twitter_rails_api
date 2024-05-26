@@ -6,14 +6,15 @@ class Relationship < ApplicationRecord
 
   has_many :notifications, dependent: :destroy
 
+  include NotificationConcern
   after_create_commit :create_notification
 
-  private
+  # private
 
-  def create_notification
-    return if follower_id == followed_id
+  # def create_notification
+  #   return if follower_id == followed_id
 
-    notification = Notification.new(visitor_id: follower_id, visited_id: followed_id, follow_id: id, action: :follow)
-    return unless notification.save
-  end
+  #   notification = Notification.new(visitor_id: follower_id, visited_id: followed_id, follow_id: id, action: :follow)
+  #   return unless notification.save
+  # end
 end
