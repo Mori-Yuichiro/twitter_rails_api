@@ -10,6 +10,8 @@ class Tweet < ApplicationRecord
   has_many :nices, dependent: :destroy
   has_many :users, through: :nices
 
+  has_many :notifications, dependent: :destroy
+
   include Rails.application.routes.url_helpers
 
   has_many_attached :images

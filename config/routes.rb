@@ -20,6 +20,7 @@ Rails.application.routes.draw do
       put '/profile', to: 'profiles#update'
       resources :users, only: %i[show], controller: :profiles
       resources :comments, only: %i[create destroy]
+      resources :notifications, only: %i[index]
     end
   end
 
