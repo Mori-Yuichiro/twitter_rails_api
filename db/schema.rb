@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_27_020331) do
+ActiveRecord::Schema[7.0].define(version: 2024_05_28_020717) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -50,6 +50,30 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_27_020331) do
     t.datetime "updated_at", null: false
     t.index ["tweet_id"], name: "index_comments_on_tweet_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "entries", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "group_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_entries_on_group_id"
+    t.index ["user_id"], name: "index_entries_on_user_id"
+  end
+
+  create_table "groups", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "group_id", null: false
+    t.text "message", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_messages_on_group_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "nices", force: :cascade do |t|
@@ -141,6 +165,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_27_020331) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "comments", "tweets"
   add_foreign_key "comments", "users"
+  add_foreign_key "entries", "groups"
+  add_foreign_key "entries", "users"
+  add_foreign_key "messages", "groups"
+  add_foreign_key "messages", "users"
   add_foreign_key "nices", "tweets"
   add_foreign_key "nices", "users"
   add_foreign_key "retweets", "tweets"

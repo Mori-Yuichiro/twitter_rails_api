@@ -7,7 +7,21 @@ module Api
 
       def show
         user = User.find_by(id: params[:id])
-        render json: { user: }, status: :ok, methods: %i[profile_image_url header_image_url retweet_tweet nice_tweet],
+        current_user_entry = Entry.where(user_id: current_api_v1_user.id)
+        another_entry = Entry.where(user_id: user.id)
+        unless user.id == current_api_v1_user.id
+          current_user_entry.each do |current|
+            another_entry.each do |another|
+              if current.group_id == another.group_id
+                @is_group = true
+                @group_id = current.group_id
+              end
+            end
+          end
+        end
+        render json: { user:, is_group: @is_group, group_id: @group_id },
+               status: :ok,
+               methods: %i[profile_image_url header_image_url retweet_tweet nice_tweet],
                include: {
                  tweets: { methods: %i[image_urls retweets_count nices_count],
                            include: %i[retweets nices] },
