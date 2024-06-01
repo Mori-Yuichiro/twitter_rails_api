@@ -16,6 +16,10 @@ Rails.application.routes.draw do
         resource :unfollow, only: %i[destroy], module: :users, controller: :follows
       end
 
+      resources :groups, only: %i[index create] do
+        resources :messages, only: %i[index create], module: :groups
+      end
+
       resources :images, only: %i[create]
       put '/profile', to: 'profiles#update'
       resources :users, only: %i[show], controller: :profiles
