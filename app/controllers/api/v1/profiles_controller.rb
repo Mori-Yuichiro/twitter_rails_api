@@ -10,13 +10,12 @@ module Api
         current_user_entry = Entry.where(user_id: current_api_v1_user.id)
         another_entry = Entry.where(user_id: user.id)
         unless user.id == current_api_v1_user.id
-          current_user_entry.each do |current|
-            another_entry.each do |another|
-              if current.group_id == another.group_id
-                @is_group = true
-                @group_id = current.group_id
-              end
-            end
+          current_entry_group_ids = current_user_entry.pluck(:group_id)
+          another_entry_group_ids = another_entry.pluck(:group_id)
+          same_group_ids = current_entry_group_ids & another_entry_group_ids
+          if same_group_ids.present?
+            @is_group = true
+            @group_id = same_group_ids.first
           end
         end
         render json: { user:, is_group: @is_group, group_id: @group_id },
