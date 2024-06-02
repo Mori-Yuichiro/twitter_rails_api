@@ -25,10 +25,11 @@ Rails.application.routes.draw do
       resources :users, only: %i[show], controller: :profiles
       resources :comments, only: %i[create destroy]
       resources :notifications, only: %i[index]
+      resources :bookmarks, only: %i[index create destroy]
     end
   end
 
-  resources :tasks
+  # resources :tasks
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")

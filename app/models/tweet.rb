@@ -8,9 +8,11 @@ class Tweet < ApplicationRecord
   has_many :retweets, dependent: :destroy
 
   has_many :nices, dependent: :destroy
-  has_many :users, through: :nices
 
   has_many :notifications, dependent: :destroy
+
+  has_many :bookmarks, dependent: :destroy
+  has_many :users, through: :bookmarks
 
   include Rails.application.routes.url_helpers
 
@@ -27,4 +29,8 @@ class Tweet < ApplicationRecord
   delegate :count, to: :retweets, prefix: true
 
   delegate :count, to: :nices, prefix: true
+
+  def bookmarked
+    bookmarks.present?
+  end
 end
