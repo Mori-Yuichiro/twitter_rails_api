@@ -25,6 +25,7 @@ Rails.application.routes.draw do
       resources :users, only: %i[show], controller: :profiles
       resources :comments, only: %i[create destroy]
       resources :notifications, only: %i[index]
+      resources :bookmarks, only: %i[index create destroy]
     end
   end
 

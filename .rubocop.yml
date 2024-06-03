@@ -12,6 +12,8 @@ Metrics/AbcSize:
   Max: 40
 Metrics/MethodLength:
   Max: 35
+Metrics/BlockLength:
+  Max: 30
 Rails/SkipsModelValidations:
   Exclude:
     - "app/controllers/api/v1/notifications_controller.rb"

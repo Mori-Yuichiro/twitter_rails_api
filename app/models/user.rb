@@ -23,6 +23,8 @@ class User < ApplicationRecord
 
   has_many :nices, dependent: :destroy
 
+  has_many :bookmarks, dependent: :destroy
+
   has_many :tweets, dependent: :destroy
 
   has_many :active_notifications, class_name: 'Notification', foreign_key: 'visitor_id', dependent: :destroy,

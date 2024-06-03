@@ -22,8 +22,8 @@ module Api
                status: :ok,
                methods: %i[profile_image_url header_image_url retweet_tweet nice_tweet],
                include: {
-                 tweets: { methods: %i[image_urls retweets_count nices_count],
-                           include: %i[retweets nices] },
+                 tweets: { methods: %i[image_urls retweets_count nices_count bookmarked],
+                           include: %i[retweets nices bookmarks] },
                  comments: {},
                  following: {},
                  followers: {}
